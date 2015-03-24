@@ -2,21 +2,21 @@
 #include<stdlib.h>
 #include<stdbool.h>	// For boolean
 
-void warshall(bool matrix[][], int dimensions);	// Gets transitive closure of matrix
+void warshall(bool matrix[][], int dimension);	// Gets transitive closure of matrix
 
 int main() {
-	int n;
+	int n;			// Dimension of square matrix
 	bool matrix[n][n];	// n x n matrix
 
 	return(EXIT_SUCCESS);
 }
 
-void warshall(bool matrix[][], int dimensions) {
+void warshall(bool matrix[][], int dimension) {
 	int k, i, j;
 
-	for(k = 0; k <= dimensions; k++) {
-		for(i = 0; i <= dimensions; i++) {
-			for(j = 0; j <= dimensions; j++) {
+	for(k = 0; k <= dimension; k++) {
+		for(i = 0; i <= dimension; i++) {
+			for(j = 0; j <= dimension; j++) {
 				if(matrix[i][j] == true)
 					// Element is already true
 				else if(matrix[i][k] == true && matrix[k][j] == true)
@@ -24,4 +24,10 @@ void warshall(bool matrix[][], int dimensions) {
 			}
 		}
 	}
+	return;	// End returning void
+}
+
+void printMatrix(bool matrix[][], int dimension) {
+
+	return;	// Return void
 }
