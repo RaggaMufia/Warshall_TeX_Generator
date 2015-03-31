@@ -8,8 +8,8 @@ void printMatrix(char** matrix, int dimension, FILE* outputFile);	// Output matr
 int main() {
 	int dimensions;	// Dimension of square matrix
 	char **matrix;	// n x n matrix
-	char[] inputFileName = "input.txt";	// Name of input file
-	char[] outputFileName = "output.tex";	// Name of output file
+	char inputFileName[] = "input.txt";	// Name of input file
+	char outputFileName[] = "output.tex";	// Name of output file
 
 /*	
 	matrix = malloc(n * sizeof *matrix);
@@ -31,21 +31,21 @@ int readMatrix(char** matrix, char* inputFileName) {
 	int i, j;	// column and row
 	
 	// Check for errors opening file
-	if(!inputFile) {
+	if(!file) {
 		printf("Error! Could not open input file.");
 		exit(-1);	// Exit with error code
 	}
 	
 	fscanf(file, "%i", dimension);	// Read in height, width
-	matrix = malloc(n * sizeof *matrix);
+	matrix = malloc(dimension * sizeof *matrix);
 	for(i = 0; i < dimension; i++)
 		matrix[i] = malloc(dimension * sizeof *matrix[i]);
 	for(i = 0; i < dimension; i++) {
-		for(j = 0; j < n; j++)
+		for(j = 0; j < dimension; j++)
 			matrix[i][j] = '0';
 	}
 
-	while(inputFile) 
+	while(file) 
 		// Reset variables
 		i = 0;
 		j = 0;
