@@ -11,10 +11,7 @@ int main() {
 	char[] inputFileName = "input.txt";	// Name of input file
 	char[] outputFileName = "output.tex";	// Name of output file
 
-	FILE *inputFile = fopen("input.txt", "r");	// Input file
-	FILE *outputFile = fopen("output.tex", "w");	// Output file
-
-	/* allocate the array */
+/*	
 	matrix = malloc(n * sizeof *matrix);
 	for (i = 0; i < n; i++)
 		matrix[i] = malloc(n * sizeof *matrix[i]);
@@ -24,12 +21,38 @@ int main() {
 			matrix[i][j] = '0';
 		}
 	}
-
+*/
 	return(EXIT_SUCCESS);
 }
 
 int readMatrix(char** matrix, char* inputFileName) {
-	FILE* inputFile = fopen(inputFileName, "r");	// Opens file in read mode
+	FILE* file = fopen(inputFileName, "r");	// Opens file in read mode
+	int dimension;	// n in nxn matrix
+	int i, j;	// column and row
+	
+	// Check for errors opening file
+	if(!inputFile) {
+		printf("Error! Could not open input file.");
+		exit(-1);	// Exit with error code
+	}
+	
+	fscanf(file, "%i", dimension);	// Read in height, width
+	matrix = malloc(n * sizeof *matrix);
+	for(i = 0; i < dimension; i++)
+		matrix[i] = malloc(dimension * sizeof *matrix[i]);
+	for(i = 0; i < dimension; i++) {
+		for(j = 0; j < n; j++)
+			matrix[i][j] = '0';
+	}
+
+	while(inputFile) 
+		// Reset variables
+		i = 0;
+		j = 0;
+		// Read new coordinates from file
+		fscanf(file, "%i %i", i, j);
+		matrix[i-1][j-1] = '1';
+	
 }
 
 void warshall(char** matrix, int dimension) {
