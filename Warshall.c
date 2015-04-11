@@ -1,7 +1,7 @@
 #include<stdio.h>	// For terminal io
 #include<stdlib.h>
 
-int readMatrix(char* inputFileName);	// Creates matrix from file contents, retuns dimensions
+int readMatrix(char* inputFileName, char** matrix);	// Creates matrix from file contents, retuns dimensions
 void warshall(char** matrix, int dimension);		// Gets transitive closure of matrix
 void printMatrix(char** matrix, int dimension, char* outputFileName);	// Output matrix to file
 
@@ -11,7 +11,7 @@ int main() {
 	char inputFileName[] = "input.txt";	// Name of input file
 	char outputFileName[] = "output.tex";	// Name of output file
 
-	dimensions = readMatrix(inputFileName);
+	dimensions = readMatrix(inputFileName, matrix);
 //	printMatrix(matrix, dimensions, outputFileName);
 
 /*	
@@ -28,11 +28,11 @@ int main() {
 	return(EXIT_SUCCESS);
 }
 
-int readMatrix(char* inputFileName) {
+// Fills out [matrix] based on the information present in the inputFile
+int readMatrix(char* inputFileName, char** matrix) {
 	FILE* file = fopen(inputFileName, "r");	// Opens file in read mode
 	int dimension;	// Order of matrix
 	int i, j;	// column and row
-	char** matrix;	// matrix of order [dimension]
 	
 	// Check for errors opening file
 	if(!file) {
@@ -42,27 +42,27 @@ int readMatrix(char* inputFileName) {
 	
 	// Read order of matrix
 	fscanf(file, "%i", &dimension);
-	
-	// Allocate memory for matrx
+	printf("%i\n", dimension);
+
+	// Allocate memory for matrix
 	matrix = (char**)malloc(dimension * sizeof(char*));
 	for(i = 0; i < dimension; i++)
-		matrix[i] = (char*)(dimension * sizeof(char));
+		matrix[i] = (char*)malloc(dimension * sizeof(char));
 
 	// Initialize each element in the array with '0'
 	for(i = 0; i < dimension; i++) {
 		for(j = 0; j < dimension; j++)
 			matrix[i][j] = '0';
 	}
-
-//	while(file)  {
-		// Reset variables
-		i = 0;
-		j = 0;
+	
+	// Assign 1s as specified by user
+	while(file)  {
 		// Read new coordinates from file
-//		fscanf(file, "%i", &i);
-//		fscanf(file, "%i", &j);
-//		matrix[0][0] = '1';
-//	}
+		fscanf(file, "%i", &i);
+		fscanf(file, "%i", &j);
+		// 
+		matrix[i][j] = '1';
+	}
 
 	fclose(file);		// Close input file
 	return dimension;	// Return order of matrix 
